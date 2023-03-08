@@ -114,21 +114,21 @@ st.title('Churn Prediction and Analysis of Internet Service Provider')
 st.subheader('Business Understanding')
 st.write(
     """
-    Every apps in play store should get any comments, critics, suggestion from users. 
-    From there, we can know how our users think about the apps, so it can be a great way to evaluate the apps performance and what we can improve from the apps.
+    Churn is time when client stop using product or service from certain company. If company can predict when churn of client happen, so they can 
+    arrange strategy to retain the client before the D-day of churn. This churn prediction will help company to retain the client and the revenue as well.
     """
 )
 
 st.write(
     """
-    I choose Netflix as the case because I have already known how is the bussiness and I am a user of Netflix.
+    In this case, we take POV from Internet Service Provider Company and use their data.
     """
 )
 
 st.subheader('Data Understanding')
 st.write(
     """
-    **Source : Scrapping from Google Play.** You can see on my jupyter notebook in github to know how to get the data.
+    **Source : Kaggle.** I will put the link later.
     """
 )
 
