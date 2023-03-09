@@ -143,8 +143,13 @@ st.dataframe(df.sample(5))
 st.subheader('Method')
 st.write(
     """
-    Sentiment Classification : Using pre-trained model from huggingface.co ([cardiffnlp/twitter-roberta-base-sentiment](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment)) \n
-    Category Classification : Using pre-trained model from huggingface.co ([alperiox/autonlp-user-review-classification-536415182](https://huggingface.co/alperiox/autonlp-user-review-classification-536415182)) \n
+    Compared some method of category prediction modeling. They are :
+    1. Logistic Regression
+    2. K-Neighbors Classifier
+    3. Decision Tree Classifier
+    4. Random Forest Classifier
+    5. XGBoost Classifier
+    6. CatBoost Classifier
     """
 )
 
@@ -153,11 +158,10 @@ st.write("""
 """)
 
 graph = graphviz.Digraph()
-graph.edge('Data Scrapping', 'Text Preprocessing')
-graph.edge('Text Preprocessing', 'Category Prediction')
-graph.edge('Text Preprocessing', 'Sentiment Prediction')
-graph.edge('Category Prediction', 'Analysis')
-graph.edge('Sentiment Prediction', 'Analysis')
+graph.edge('EDA', 'Data Preprocessing')
+graph.edge('Data Preprocessing', 'Modeling')
+graph.edge('Modeling', 'Hyperparameter Tuning')
+
 
 
 st.graphviz_chart(graph)
