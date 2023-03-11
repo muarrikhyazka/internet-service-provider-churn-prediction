@@ -203,5 +203,5 @@ st.write("""
 
 c1, c2 = st.columns(2)
 with c1:
-    st.info('**[Github Repo](https://github.com/muarrikhyazka/text-analysis-of-apps-google-play-review)**', icon="🍣")
+    st.info('**[Github Repo](https://github.com/muarrikhyazka/internet-service-provider-churn-prediction)**', icon="🍣")
 
