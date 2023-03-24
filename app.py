@@ -128,7 +128,7 @@ st.write(
 st.subheader('Data Understanding')
 st.write(
     """
-    **Source : Kaggle.** I will put the link later.
+    **Source : [Kaggle.](https://www.kaggle.com/datasets/mehmetsabrikunt/internet-service-churn?sort=votes)**
     """
 )
 
