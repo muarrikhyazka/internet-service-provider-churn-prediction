@@ -9,13 +9,13 @@ import base64
 
 
 
-
+title = 'Churn Prediction and Analysis of Internet Service Provider'
 
 
 
 # Layout
 img = Image.open('assets/icon_pink-01.png')
-st.set_page_config(page_title='Muarrikh Yazka', page_icon=img, layout='wide')
+st.set_page_config(page_title=title, page_icon=img, layout='wide')
 
 
 
@@ -108,7 +108,7 @@ with st.sidebar:
 
 
 
-st.title('Churn Prediction and Analysis of Internet Service Provider')
+st.title(title)
 
 
 st.subheader('Business Understanding')
