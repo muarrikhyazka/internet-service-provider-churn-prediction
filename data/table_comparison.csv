@@ -1,0 +1,7 @@
+model;accuracytrain;accuracytest;precision;recall;rocauc
+LogisticRegression;0.872;0.872;0.862;0.915;0.866
+KNeighborsClassifier;0.926;0.906;0.922;0.908;0.906
+DecisionTreeClassifier;1.0;0.903;0.915;0.909;0.902
+RandomForestClassifier;1.0;0.94;0.954;0.936;0.94
+XGBClassifier;0.954;0.94;0.954;0.938;0.941
+<catboost.core.CatBoostClassifier object at 0x000001FD8628F880>;0.95;0.941;0.954;0.94;0.942

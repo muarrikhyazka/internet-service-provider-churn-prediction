@@ -3,6 +3,8 @@ import streamlit as st
 from PIL import Image
 from bokeh.models.widgets import Div
 import plotly.express as px
+import matplotlib.pyplot as plt
+import seaborn as sns
 import graphviz
 import base64
 
@@ -143,12 +145,12 @@ st.subheader('Method')
 st.write(
     """
     Compared some method of category prediction modeling. They are :
-    1. Logistic Regression
-    2. K-Neighbors Classifier
-    3. Decision Tree Classifier
-    4. Random Forest Classifier
-    5. XGBoost Classifier
-    6. CatBoost Classifier
+    \n1. Logistic Regression
+    \n2. K-Neighbors Classifier
+    \n3. Decision Tree Classifier
+    \n4. Random Forest Classifier
+    \n5. XGBoost Classifier
+    \n6. CatBoost Classifier
     """
 )
 
@@ -165,40 +167,112 @@ graph.edge('Modeling', 'Hyperparameter Tuning')
 
 st.graphviz_chart(graph)
 
+st.subheader('Exploratory Data Analysis')
 
+num = list(df.describe().columns)
+fig_1 = plt.figure(figsize=(15, 20))
+for i in range(0, len(num)):
+    plt.subplot(7, 2, i+1)
+    sns.histplot(x=df[num[i]], color='cornflowerblue')
+    plt.xlabel(num[i])
+    plt.tight_layout()
+st.pyplot(fig_1.figure)
 
-st.subheader('Insights')
 st.write(
     """
-    I calculated word frequency and see on top 10 in unigram and bigram. Try to see all chart combination between sentiment and category and will show you which has insight.
+    From this plot, we can see the distribution and balance of each variables.
     """
 )
 
-## convert to corpus
-top=10
-corpus = df["content_clean"][(df['sentiment']=='NEGATIVE') & (df['predicted_category']=='INTERFACE')]
-lst_tokens = nltk.tokenize.word_tokenize(corpus.str.cat(sep=" "))
+num = list(df.describe().columns)
+fig_2 = plt.figure(figsize=(20,10))
+for i in range(0, len(num)):
+    plt.subplot(2, 7, i+1)
+    sns.boxplot(y=df[num[i]], orient='v', x=df['churn'], palette="Set2")
+    plt.xticks(rotation=-45, ha='left')
+    plt.tight_layout()
+st.pyplot(fig_2.figure)
 
-    
-## calculate words bigrams
-dic_words_freq = nltk.FreqDist(nltk.ngrams(lst_tokens, 2))
-dtf_bi = pd.DataFrame(dic_words_freq.most_common(), 
-                      columns=["Word","Freq"])
-dtf_bi["Word"] = dtf_bi["Word"].apply(lambda x: " ".join(
-                   string for string in x) )
-fig_bi = px.bar(dtf_bi.iloc[:top,:].sort_values(by="Freq"), x="Freq", y="Word", orientation='h',
-             hover_data=["Word", "Freq"],
-             height=400,
-             title='Top 10 Bigrams Text')
-st.plotly_chart(fig_bi, use_container_width=True)
+st.write(
+    """
+    On this chart, we can see distribution of each variable classified by the churn. From here, we got a picture which variable might be have big influence to the churn.'
+    """
+)
 
-st.write("""
-    We can see here, its combination between negative sentiment and interface category. 
-    It shows us that interface in TV is needed to be improved because android tv was mentioned sometimes. 
-    Many other words which is related to TV such as mi Box (Xiaomi set top box for TV), dolby digital (sound in smart tv), and nvidia shield (android tv-based digital media player).
-    It indicates that Netflix should prioritize to improve their app in TV. 
-    Furthermore, in detail many complaints for voice search feature, so It should be attention to start.
+fig_3 = plt.figure(figsize=(15, 15))
+sns.heatmap(df.corr(), cmap="YlGnBu", annot=True)
+st.pyplot(fig_3.figure)
+
+st.write(
+    """
+    Here we can see correlation across each variables. From here we can know what variable influence churn.'
+    """
+)
+
+st.subheader('Modeling')
+st.write(
+    """
+    Before Modeling, I do some small tasks. They are :
+    \n1. Split data train and test.
+    \n2. Standardize data.
+    """
+)
+
+st.write(
+    """
+    Below is the performance of each methods, from there we can choose which the best.
+    """
+)
+
+@st.cache
+def load_data_performance():
+    df_raw = pd.read_csv(r'data/table_comparison.csv', sep=';')
+    return df_raw
+
+df_performance = load_data_performance()
+st.dataframe(df_performance)
+
+st.write(
+    """
+    I decide to choose Catboost because has the biggest rocauc score.
+    """
+)
+
+st.write(
+    """
+    After that, do Hyperparameter Tuning Grid Search Optuna on Catboost model. Below the best parameter to use.
+    """
+)
+
+st.code("""
+Number of finished trials: 31
+Best trial:
+  Value: 0.9378314808836415
+  Params: 
+    objective: Logloss
+    colsample_bylevel: 0.09949250593150287
+    depth: 12
+    boosting_type: Ordered
+    bootstrap_type: MVS
 """)
+
+st.subheader('Insight')
+st.write(
+    """
+    For Model interpretation, used Shapley Value.
+    """
+)
+
+st.image(image = Image.open('chart/shapley value.png'), caption='Red : push client into churn | Blue : push client to avoid churn')
+
+
+
+st.write(
+    """
+    From chart above, internet service provider should increase their download limit or provide special product with high download limit.
+    Beside that, minimize service failure can minimize the churn as well, so needed mitigation for it.
+    """
+)
 
 c1, c2 = st.columns(2)
 with c1:

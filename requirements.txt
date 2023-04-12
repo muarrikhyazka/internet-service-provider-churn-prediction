@@ -2,6 +2,8 @@ pandas
 streamlit
 Pillow
 bokeh
+matplotlib
+seaborn
 graphviz
 plotly
 pybase64
