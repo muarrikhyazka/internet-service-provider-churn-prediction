@@ -10,7 +10,7 @@ import base64
 
 
 
-title = 'Churn Prediction and Analysis of Internet Service Provider'
+title = 'Customer Churn Prediction and Analysis of Internet Service Provider'
 
 
 
