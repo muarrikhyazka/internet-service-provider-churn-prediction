@@ -90,14 +90,16 @@ with st.sidebar:
     st.write('\n')
     st.write('\n')
 
-    if st.button('🏠 HOME', on_click='https://muarrikhyazka.github.io'):
-        js = "window.location.href = 'https://muarrikhyazka.github.io'"  # Current tab
+    if st.button('🏠 HOME'):
+        # js = "window.location.href = 'http://www.muarrikhyazka.com'"  # Current tab
+        js = "window.open('http://www.muarrikhyazka.com')"
         html = '<img src onerror="{}">'.format(js)
         div = Div(text=html)
         st.bokeh_chart(div)
 
-    if st.button('🍱 GITHUB', on_click='https://github.com/muarrikhyazka'):
-        js = "window.location.href = 'https://github.com/muarrikhyazka'"  # Current tab
+    if st.button('🍱 GITHUB'):
+        # js = "window.location.href = 'https://www.github.com/muarrikhyazka'"  # Current tab
+        js = "window.open('https://www.github.com/muarrikhyazka')"
         html = '<img src onerror="{}">'.format(js)
         div = Div(text=html)
         st.bokeh_chart(div)
@@ -111,6 +113,13 @@ with st.sidebar:
 
 st.title(title)
 
+st.write(
+    """
+    \n
+    \n
+    \n
+    """
+)
 
 st.subheader('Business Understanding')
 st.write(
@@ -123,6 +132,14 @@ st.write(
 st.write(
     """
     In this case, we take POV from Internet Service Provider Company and use their data.
+    """
+)
+
+st.write(
+    """
+    \n
+    \n
+    \n
     """
 )
 
@@ -140,6 +157,14 @@ st.write(
 )
 
 st.dataframe(df.sample(5))
+
+st.write(
+    """
+    \n
+    \n
+    \n
+    """
+)
 
 st.subheader('Method')
 st.write(
@@ -166,6 +191,14 @@ graph.edge('Modeling', 'Hyperparameter Tuning')
 
 
 st.graphviz_chart(graph)
+
+st.write(
+    """
+    \n
+    \n
+    \n
+    """
+)
 
 st.subheader('Exploratory Data Analysis')
 
@@ -195,7 +228,7 @@ st.pyplot(fig_2.figure)
 
 st.write(
     """
-    On this chart, we can see distribution of each variable classified by the churn. From here, we got a picture which variable might be have big influence to the churn.'
+    On this chart, we can see distribution of each variable classified by the churn. From here, we got a picture which variable might be have big influence to the churn.
     """
 )
 
@@ -205,7 +238,15 @@ st.pyplot(fig_3.figure)
 
 st.write(
     """
-    Here we can see correlation across each variables. From here we can know what variable influence churn.'
+    Here we can see correlation across each variables. From here we can know what variable influence churn.
+    """
+)
+
+st.write(
+    """
+    \n
+    \n
+    \n
     """
 )
 
@@ -234,7 +275,7 @@ st.dataframe(df_performance)
 
 st.write(
     """
-    I decide to choose Catboost because has the biggest rocauc score.
+    I decide to choose Catboost because has the biggest ROCAUC score.
     """
 )
 
@@ -271,6 +312,14 @@ st.write(
     """
     From chart above, internet service provider should increase their download limit or provide special product with high download limit.
     Beside that, minimize service failure can minimize the churn as well, so needed mitigation for it.
+    """
+)
+
+st.write(
+    """
+    \n
+    \n
+    \n
     """
 )
 
